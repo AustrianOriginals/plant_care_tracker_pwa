@@ -90,7 +90,7 @@ export const CareEventSchema = z.object({
 })
 
 // ─── Exported Types (von Zod abgeleitet) ──────────────────────────────────────
-// Vorteil: Types und Validierung sind immer synchron!
+
 
 export type PlantFormData = z.infer<typeof PlantFormSchema>
 export type CareEventData = z.infer<typeof CareEventSchema>
