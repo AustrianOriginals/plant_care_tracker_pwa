@@ -72,7 +72,7 @@ export interface Plant {
     fertilizingIntervalDays?: number
     repottingIntervalDays?: number
 
-    // Last care dates (denormalized for quick access)
+    // Last care dates
     lastWateredAt?: Date
     lastFertilizedAt?: Date
     lastRepottedAt?: Date
