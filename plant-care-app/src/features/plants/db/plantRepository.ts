@@ -2,6 +2,7 @@ import { db } from '../../../shared/lib/db.ts'
 import type { Plant, CareEvent, CareEventType } from '../types'
 import { PlantSchema, CareEventSchema } from '../schema'
 import { v4 as uuidv4 } from 'uuid'
+import { calcNextWateringDate } from '../lib/schedulingEngine'
 
 // ─── Plants ───────────────────────────────────────────────────────────────────
 
@@ -83,6 +84,18 @@ export const careEventRepository = {
         const event: CareEvent = {
             ...data,
             id: uuidv4(),
+        }
+
+        if (data.type === 'watering') {
+            const plant = await plantRepository.getById(data.plantId)
+            if (plant) {
+                const plannedDate = calcNextWateringDate(plant, [])
+                const earlyByDays =
+                    (plannedDate.getTime() - data.performedAt.getTime()) / (1000 * 60 * 60 * 24)
+
+                event.earlyByDays = Math.round(earlyByDays * 10) / 10 // auf 1 Dezimalstelle
+                event.scheduledFor = plannedDate
+            }
         }
 
         CareEventSchema.parse(event)
