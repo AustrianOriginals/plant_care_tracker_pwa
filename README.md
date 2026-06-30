@@ -14,7 +14,7 @@ For example:
 - increased heat exposure can shorten predicted watering cycles
 - user activity continuously influences reminder calculations
 
-> Status: Active development
+> Status: Paused development due to exam season
 
 > Planned first public release: Q3 2026
 
